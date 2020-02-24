@@ -60,7 +60,7 @@ def resetVar():
     control = 0
     i = 0
     stopWatch = 0
-    gut = 1
+    gut = 2
 
 # printKey will be called each time a keypad button is pressed
 keypad.registerKeyPressHandler(printKey)

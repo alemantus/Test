@@ -60,7 +60,7 @@ def resetVar():
     control = 0
     i = 0
     stopWatch = 0
-    gut = 1
+    gut = "My value is better than your value"
 
 # printKey will be called each time a keypad button is pressed
 keypad.registerKeyPressHandler(printKey)
@@ -70,7 +70,7 @@ while 1:
         global input
         global stopWatch
         mylcd.cursor_mode = CursorMode.blink
-        
+
 
 
         if(menuStat == 0):
@@ -105,12 +105,12 @@ while 1:
                     zeroControl=1
                     break
 
-                
+
             mylcd.cursor_pos = (2, 0)
             mylcd.write_string("             ")
             mylcd.cursor_pos = (0, 14)
             input = "safe"
-            
+
         elif(menuStat == 1):
             if(input.isdigit()):
                 roomNumber[0+i] = input
@@ -140,7 +140,7 @@ while 1:
 
                 startWeight=hx.get_weight_mean(20)
                 mylcd.cursor_pos = (2, 0)
-                time.sleep(0.1)            
+                time.sleep(0.1)
                 mylcd.write_string("Aaben doeren      ")
                 #print(startWeight)
                 menuStat = 3
@@ -148,18 +148,18 @@ while 1:
                 #    menuStat = 3
                 #else:
                 #   while(GPIO.input(4)==0):
-                #        mylcd.cursor_pos = (2, 0)                
+                #        mylcd.cursor_pos = (2, 0)
                 #        mylcd.write_string("Luk og aaben igen")
 
 
         elif(menuStat == 3):
             if(GPIO.input(4) == 0 and control == 0):
                 control = 1
-                
+
                 #print("test2")
                 mylcd.cursor_pos = (2, 0)
                 mylcd.write_string("Doeren er aaben..")
-                
+
             elif(GPIO.input(4) == 1 and control == 1):
                 #print("test3")
                 #hx.zero()
@@ -182,10 +182,10 @@ while 1:
                 #if((-1)*endWeight-330*round(compareWeight)<25*round(compareWeight) and (-1)*endWeight-330*round(compareWeight)>-25*round(compareWeight)):
                 if(compareWeight-round(compareWeight)<0.2 and compareWeight-round(compareWeight)>(-0.2)):
                     print(round(compareWeight))
-                    mylcd.cursor_pos = (2, 0)       
+                    mylcd.cursor_pos = (2, 0)
                     mylcd.write_string("antal: " + str(round(compareWeight))+ " rum: " + str(roomNumberInt))
-                   
-                    
+
+
 
                     df = pandas.read_csv('/home/pi/Documents/LCD/usb/data.csv')
                     prevBill = df.loc[roomNumberInt-1, 'antal'+drinkType]
@@ -196,8 +196,8 @@ while 1:
                     df.to_csv('/home/pi/Documents/LCD/usb/data.csv',index=False)
 
                     moneyToPay= (df.iloc[roomNumberInt-1].sum()-roomNumberInt)*8
-                    
-                    mylcd.cursor_pos = (3, 0) 
+
+                    mylcd.cursor_pos = (3, 0)
                     mylcd.write_string("Din regning: " + str(moneyToPay) + "kr ")
                     time.sleep(1)
 
@@ -208,11 +208,11 @@ while 1:
                     control = 0
                     i = 0
                     stopWatch = 0
-                    
 
-                    
-                    
-                
+
+
+
+
 
 
         time.sleep(0.1)
@@ -228,28 +228,27 @@ while 1:
             menuStat = 0
             control = 0
             i = 0
-            stopWatch = 0    
+            stopWatch = 0
             #resetVar()
-        
-        if(input == "*"): 
+
+        if(input == "*"):
             #resetVar()
             menuStat = 0
             control = 0
             i = 0
             stopWatch = 0
 
-        if(input == "#"): 
+        if(input == "#"):
             menuStat = 0
             control = 0
             i = 0
             stopWatch = 0
             zeroControl = 0
-            
 
 
-        
+
+
     except (KeyboardInterrupt, SystemExit):
         mylcd.clear()
         GPIO.cleanup()
         sys.exit()
-
